@@ -1,0 +1,3 @@
+<svg wire:click="removeVote(L0356702Y)" class="w-6 h-6 cursor-pointer text-red-600" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+</svg><?php /**PATH C:\Users\eugen\Documents\Workspace\sabrina\storage\framework\views/fdd343d0c886aed26cbd6069e4d4d16d.blade.php ENDPATH**/ ?>

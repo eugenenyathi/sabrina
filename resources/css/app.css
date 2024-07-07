@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@font-face {
+    font-family: 'Great Vibes';
+    /* Name you want to use for the font */
+    src: url('/public/fonts/Anydore.otf');
+    /* Fallback for older browsers */
+    font-weight: 800;
+    /* Optional: Font weight */
+    font-style: normal;
+    /* Optional: Font style */
+}
+
+.font-custom {
+    font-family: 'Great Vibes';
+}
+
+/* .text-scarlet-600 {
+    --tw-text-opacity: 1;
+    color: rgb(230 41 28 / var(--tw-text-opacity));
+} */
+

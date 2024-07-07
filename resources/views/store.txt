@@ -1,0 +1,87 @@
+
+                foreach ($voters as $voter) {
+                    //record the vote
+                    $votesService->freshVote($voter->student_id, $candidate->student_id);
+                }
+
+                {{-- <x-untitledui-heart-rounded class="w-7 h-7  cursor-pointer"
+                        wire:click.live='vote({{ $candidate->student_id }})' /> --}}
+
+                            //TODO: FIX PAGINATION
+    return SrcPost::whereNot('src_post_id', 'VP')->paginate(5);
+    // return SrcPost::whereNot('src_post_id', SrcPostConstants::VP['src_post_id'])->paginate(5, ['page' => $this->page]);
+
+    $getPaginatedPosts = function ($currentPage = 1) {
+    $itemsPerPage = 5;
+    // Fetch all posts from the model
+    $vposts = SrcPost::whereNot('src_post_id', SrcPostConstants::VP['src_post_id'])->get();
+    $allPosts = $vposts->all();
+
+    // Validate and sanitize input
+    $currentPage = (int) max($currentPage, 1); // Ensure positive page number
+    $itemsPerPage = (int) max($itemsPerPage, 1); // Ensure positive items per page
+
+    // Calculate total number of pages
+    $totalPages = ceil(count($allPosts) / $itemsPerPage);
+
+    // Validate requested page (don't exceed total pages)
+    $currentPage = min($currentPage, $totalPages);
+
+    // Calculate starting index based on current page and items per page
+    $startIndex = ($currentPage - 1) * $itemsPerPage;
+
+    // Logic for user click handling (move between halves of data)
+    $isSecondHalf = $currentPage > floor($totalPages / 2);
+
+    if ($isSecondHalf) {
+        $endIndex = count($allPosts) - 1; // End at the last item for second half
+        $startIndex = $startIndex + floor(count($allPosts) / 2); // Shift startIndex halfway through
+        $this->currentPage = 0;
+    } else {
+        $endIndex = $startIndex + $itemsPerPage - 1; // End within bounds of first half
+    }
+
+    // Slice the data using array_slice with proper checks
+    $paginatedPosts = array_slice($allPosts, $startIndex, min($endIndex, count($allPosts) - 1) - $startIndex + 1);
+
+    return $paginatedPosts;
+};
+
+public function highestVotesCandidate($candidates)
+    {
+        $highestVotes = 0;
+        $candidateStudentId = '';
+
+        foreach ($candidates as $candidate) {
+            $candidateVotes = $this->votesService->getCandidateVotes($candidate->student_id);
+
+            if ($candidateVotes->votes > $highestVotes) {
+                $highestVotes = $candidateVotes;
+                $candidateStudentId = $candidate->student_id;
+            }
+        }
+
+        return $candidateStudentId;
+    }
+
+
+     $presidentialProfileExists = $this->presidentialCandidateProfilesExists();
+
+            switch($presidentialProfileExists){
+                case true:
+
+            }
+
+  public function presidentialCandidateProfilesExists()
+    {
+        $profileSrcPostId = SrcPostConstants::PRESIDENT['src_post_id'];
+        $candidates = Candidate::where('src_post_id', $profileSrcPostId)->get();
+
+        foreach ($candidates as $candidate) {
+            $candidateHasProfile = CandidateProfile::where('student_id', $candidate->student_id)->exists();
+            if ($candidateHasProfile) return true;
+        }
+
+        return false;
+    }
+}
